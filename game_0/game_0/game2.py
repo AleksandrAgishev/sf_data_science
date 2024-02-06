@@ -21,7 +21,35 @@ def random_predict(number:int=1) -> int:
 
 print(f'Количество попыток: {random_predict()}')
 
-def score_game(random_predict) -> int:
+def dichotomy_predict(number:int=1) -> int:
+    """Рандомно угадываем число
+
+    Args:
+        number (int, optional): Загаданное число. Defaults to 1.
+
+    Returns:
+        int: Число попыток
+    """
+
+    count = 0
+    predict_number0 = 0
+    predict_number1 = 50
+    predict_number2 = 101
+    while True:
+        count += 1
+        if number == predict_number1:
+            break # выход из цикла, если угадали
+        elif number > predict_number1:
+            predict_number0 = predict_number1
+        else:
+            predict_number2 = predict_number1
+        
+        predict_number1 = (predict_number0 +predict_number2)//2
+    return(count)
+
+print(f'Количество попыток: {dichotomy_predict()}')
+
+def score_game(predict) -> int:
     """За какое количество попыток в среднем из 1000 подходов угадывает наш алгоритм
 
     Args:
@@ -36,7 +64,7 @@ def score_game(random_predict) -> int:
     random_array = np.random.randint(1, 101, size=(1000)) # загадали список чисел
 
     for number in random_array:
-        count_ls.append(random_predict(number))
+        count_ls.append(predict(number))
 
     score = int(np.mean(count_ls)) # находим среднее количество попыток
 
@@ -46,3 +74,4 @@ def score_game(random_predict) -> int:
 # RUN
 if __name__ == '__main__':
     score_game(random_predict)
+    score_game(dichotomy_predict)
