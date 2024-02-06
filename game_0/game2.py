@@ -22,7 +22,7 @@ def random_predict(number:int=1) -> int:
 print(f'Количество попыток: {random_predict()}')
 
 def dichotomy_predict(number:int=1) -> int:
-    """Рандомно угадываем число
+    """Угадываем число методом дихотомии
 
     Args:
         number (int, optional): Загаданное число. Defaults to 1.
@@ -32,19 +32,21 @@ def dichotomy_predict(number:int=1) -> int:
     """
 
     count = 0
+    #разбиваем диапазон на два отрезка
     predict_number0 = 0
     predict_number1 = 50
     predict_number2 = 101
+
     while True:
         count += 1
         if number == predict_number1:
             break # выход из цикла, если угадали
         elif number > predict_number1:
-            predict_number0 = predict_number1
+            predict_number0 = predict_number1 #переопределяем отрезок
         else:
-            predict_number2 = predict_number1
+            predict_number2 = predict_number1 #переопределяем отрезок
         
-        predict_number1 = (predict_number0 +predict_number2)//2
+        predict_number1 = (predict_number0 +predict_number2)//2 #делим отрезок пополам
     return(count)
 
 print(f'Количество попыток: {dichotomy_predict()}')
